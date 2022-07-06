@@ -3,7 +3,7 @@ const { BadRequestError, NotFoundError } = require("../utils/errors")
 
 class Listing {
   static async createListing({ newListing, user }) {
-    const requiredFields = ["location", "title", "description", "imageUrl"]
+    const requiredFields = ["location", "title", "description", "imageUrl", "price"]
     requiredFields.forEach((field) => {
       if (!newListing?.hasOwnProperty(field)) {
         throw new BadRequestError(`Missing required field - ${field} - in request body.`)
@@ -79,7 +79,7 @@ class Listing {
   }
 
   static async fetchAll() {
-    const results = await db.query(
+     const results = await db.query(
       `
       SELECT listings.id,
              listings.user_id AS "userId",
